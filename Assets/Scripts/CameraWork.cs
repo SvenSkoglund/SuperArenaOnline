@@ -185,8 +185,7 @@ namespace Photon.Pun.Demo.PunBasics
             // cameraTransform.rotation = yRotation * Quaternion.LookRotation(relativeOffset);
             if (cameraRotateToggle == true)
             {
-                float rotateY = Input.GetAxis("Mouse X") ;
-                Debug.LogError("MouseSpin rotateY: " + rotateY, this);
+                float rotateY = Input.GetAxis("Mouse X") * 2 ;
 				playerManager.globalRotationY += rotateY;                
 				// var rotation = Quaternion.Euler(0, x, 0);
                 // var position = rotation * new Vector3(0.0f, 0.0f, -distance) + centerPos;

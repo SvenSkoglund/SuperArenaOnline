@@ -61,6 +61,18 @@ namespace Photon.Pun.Demo.PunBasics
 
         void Update()
         {
+            // Prevent control is connected to Photon and represent the localPlayer
+            if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+            {
+                return;
+            }
+
+            // failSafe is missing Animator component on GameObject
+            if (!animator)
+            {
+                return;
+            }
+			
             DetectGround();
             // deal with Jumping
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -99,17 +111,6 @@ namespace Photon.Pun.Demo.PunBasics
         {
             animator.SetInteger("WeaponState", WeaponState);
 
-            // Prevent control is connected to Photon and represent the localPlayer
-            if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
-            {
-                return;
-            }
-
-            // failSafe is missing Animator component on GameObject
-            if (!animator)
-            {
-                return;
-            }
 
 
 
