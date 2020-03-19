@@ -133,8 +133,8 @@ namespace Photon.Pun.Demo.PunBasics
 
 	        // Set the position of the camera on the x-z plane to:
 	        // distance meters behind the target
-	        cameraTransform.position = targetCenter;
-	        cameraTransform.position += currentRotation * Vector3.back * distance;
+	        // cameraTransform.position = targetCenter;
+	        // cameraTransform.position += currentRotation * Vector3.back * distance;
 
 	        // Set the height of the camera
 	        cameraTransform.position = new Vector3( cameraTransform.position.x, currentHeight, cameraTransform.position.z );

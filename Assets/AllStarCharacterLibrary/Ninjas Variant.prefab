@@ -278,13 +278,13 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 3
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: WeaponState
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: NonCombat
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Idling
   - Type: 9
     SynchronizeType: 0
@@ -308,9 +308,9 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: KnockedBack
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 1
 --- !u!114 &3454939231584095450
 MonoBehaviour:
@@ -327,10 +327,12 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 1231360084016107015}
+  - {fileID: 5644308861317750537}
+  - {fileID: 1005230276}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -347,6 +349,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionDampTime: 0.25
+  jumping: 0
+  falling: 0
+  fallspeed: 0
+  fallForwardSpeed: 0.3
   WeaponState: 0
 --- !u!114 &5644308861317750537
 MonoBehaviour:
@@ -439,6 +445,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: da3e82f0522b01943988c703e42aa70a, type: 2}
+    - target: {fileID: 9500000, guid: dcb1dc08d2cc24c408500eb8f881749f, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: dcb1dc08d2cc24c408500eb8f881749f, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcb1dc08d2cc24c408500eb8f881749f, type: 3}
 --- !u!1 &1438845529655364835 stripped
