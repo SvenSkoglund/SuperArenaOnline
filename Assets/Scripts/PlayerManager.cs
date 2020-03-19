@@ -31,7 +31,7 @@ namespace Photon.Pun.Demo.PunBasics
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
-
+        public float globalRotationY;
         #endregion
 
         #region Private Fields
@@ -60,6 +60,7 @@ namespace Photon.Pun.Demo.PunBasics
             if (photonView.IsMine)
             {
                 LocalPlayerInstance = gameObject;
+                globalRotationY = LocalPlayerInstance.transform.rotation.y;
             }
 
             // #Critical
@@ -98,10 +99,10 @@ namespace Photon.Pun.Demo.PunBasics
             }
 
 
-            #if UNITY_5_4_OR_NEWER
-                        // Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
-                        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
-            #endif
+#if UNITY_5_4_OR_NEWER
+            // Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+#endif
         }
 
 
@@ -110,9 +111,9 @@ namespace Photon.Pun.Demo.PunBasics
             // Always call the base to remove callbacks
             base.OnDisable();
 
-        #if UNITY_5_4_OR_NEWER
-                    UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
-        #endif
+#if UNITY_5_4_OR_NEWER
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+#endif
         }
 
 
@@ -238,9 +239,7 @@ namespace Photon.Pun.Demo.PunBasics
             // }
 
 
-            Vector3 Movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            LocalPlayerInstance.transform.position += Movement * speed * Time.deltaTime;
 
         }
 

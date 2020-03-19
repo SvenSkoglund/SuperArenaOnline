@@ -19,18 +19,21 @@ namespace Photon.Pun.Demo.PunBasics
         [SerializeField]
         private float directionDampTime = 0.25f;
         private float distToGround;
+        private CapsuleCollider collider;
+        private Vector3 Movement;
+        private PlayerManager playerManager;
         Animator animator;
 
         Transform transform;
         #endregion
         #region Public Fields
+        public float speed;
         public bool jumping = false;
         public bool falling = false;
         public float fallspeed = 0.0f;
         public float fallForwardSpeed = 0.3f;
 
         public int WeaponState = 0;
-
 
         #endregion
 
@@ -41,8 +44,11 @@ namespace Photon.Pun.Demo.PunBasics
         /// </summary>
         void Start()
         {
+            playerManager = GetComponent<PlayerManager>();
+
             animator = GetComponent<Animator>();
-            distToGround = GetComponent<Collider>().bounds.extents.y;
+            collider = GetComponent<CapsuleCollider>();
+            distToGround = 0.03f;
 
             animator.SetInteger("WeaponState", WeaponState);
             animator.SetBool("Idling", true);//stop moving
@@ -52,10 +58,46 @@ namespace Photon.Pun.Demo.PunBasics
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity on every frame.
         /// </summary>
+
+        void Update()
+        {
+            DetectGround();
+            // deal with Jumping
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            // only allow jumping if we are running.
+            Movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+			Movement = Quaternion.Euler(0, playerManager.globalRotationY, 0) * Movement;
+            // Debug.LogError("Horizonatal Input: " + Input.GetAxis("Horizontal"));
+            // Debug.LogError("Vertical Input: " + Input.GetAxis("Vertical"));
+            if (Movement.x != 0 || Movement.z != 0)
+            {
+                animator.SetBool("isRunning", true);
+                transform.rotation = Quaternion.LookRotation(Movement);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+
+            }
+            if (!DetectCollision(Movement))
+            {
+
+                transform.position += Movement * speed * Time.deltaTime;
+            }
+            else
+            {
+                // transform.position += -Movement * speed * Time.deltaTime;
+
+            }
+            if (Input.GetKey("space"))
+            {
+                animator.SetTrigger("New Trigger");
+            }
+        }
         void LateUpdate()
         {
             animator.SetInteger("WeaponState", WeaponState);
-            DetectGround();
 
             // Prevent control is connected to Photon and represent the localPlayer
             if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
@@ -69,21 +111,7 @@ namespace Photon.Pun.Demo.PunBasics
                 return;
             }
 
-            // deal with Jumping
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-            // only allow jumping if we are running.
-            Vector3 Movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            // Debug.LogError("Horizonatal Input: " + Input.GetAxis("Horizontal"));
-            // Debug.LogError("Vertical Input: " + Input.GetAxis("Vertical"));
-			if(Movement.x != 0 || Movement.z != 0){
-				animator.SetBool("isRunning", true);
-			} else{
-				animator.SetBool("isRunning",false);
-
-			}
-            transform.position += Movement * 10 * Time.deltaTime;
-			transform.rotation = Quaternion.LookRotation(Movement);
 
         }
 
@@ -175,7 +203,7 @@ namespace Photon.Pun.Demo.PunBasics
                                                                                         //v += -(transform.forward * fallForwardSpeed);
                 transform.position -= v;
                 transform.position += transform.forward * fallForwardSpeed;
-				
+
                 // lookAtPos = transform.position + transform.forward * 0.3f;
                 // movementTargetPosition = transform.position + transform.forward * 0.3f;
             }
@@ -199,13 +227,25 @@ namespace Photon.Pun.Demo.PunBasics
                 //     //movementTarget.transform.parent=null;
                 // }
             }
+
+            if (transform.position.y < 0)
+            {
+                transform.position = new Vector3(transform.position.x, .2f, transform.position.z);
+            }
         }
 
         bool IsGrounded()
         {
-            bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.01f);
+            bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, distToGround);
             return isGrounded;
         }
+
+        bool DetectCollision(Vector3 movement)
+        {
+            bool isColliding = Physics.Raycast(transform.position, movement, 1f);
+            return isColliding;
+        }
+
         #endregion
 
 
