@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 022bae18b3490e94e882ce0277ab4569
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pfCombatText: {instanceID: 0}
+  - pfSpellIcon: {instanceID: 0}
+  - pfInGameUI: {fileID: 3351289397719053529, guid: 63b9aeef1115b5a4abbe4f1fe4270b88,
+      type: 3}
+  - clickHandler: {instanceID: 0}
+  - dashEffect: {instanceID: 0}
+  - rageEffect: {instanceID: 0}
+  - spinEffect: {instanceID: 0}
+  - cutEffect: {instanceID: 0}
+  - crippleEffect: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

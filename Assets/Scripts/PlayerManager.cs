@@ -32,6 +32,7 @@ namespace Photon.Pun.Demo.PunBasics
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
         public float globalRotationY;
+        public float globalRotationX;
         #endregion
 
         #region Private Fields
@@ -61,6 +62,7 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 LocalPlayerInstance = gameObject;
                 globalRotationY = LocalPlayerInstance.transform.rotation.y;
+                globalRotationX = LocalPlayerInstance.transform.rotation.x;
             }
 
             // #Critical

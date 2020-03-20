@@ -39,9 +39,10 @@ namespace Photon.Pun.Demo.PunBasics
         [SerializeField]
         private bool followOnStart = false;
 
+        public Transform pfInGameUI;
         // cached transform of the target
         Transform cameraTransform;
-		PlayerManager playerManager;
+        PlayerManager playerManager;
         // maintain a flag internally to reconnect if target is lost or camera is switched
         bool isFollowing;
         bool cameraRotateToggle;
@@ -52,6 +53,7 @@ namespace Photon.Pun.Demo.PunBasics
         // Represents the position we are trying to reach using SmoothDamp()
         private float targetHeight = 100000.0f;
 
+        private Camera UICamera;
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -61,12 +63,15 @@ namespace Photon.Pun.Demo.PunBasics
         /// </summary>
         void Start()
         {
-			playerManager = GetComponent<PlayerManager>();
+            playerManager = GetComponent<PlayerManager>();
             // Start following the target if wanted.
             if (followOnStart)
             {
                 OnStartFollowing();
+
             }
+
+
 
         }
 
@@ -185,13 +190,18 @@ namespace Photon.Pun.Demo.PunBasics
             // cameraTransform.rotation = yRotation * Quaternion.LookRotation(relativeOffset);
             if (cameraRotateToggle == true)
             {
-                float rotateY = Input.GetAxis("Mouse X") * 2 ;
-				playerManager.globalRotationY += rotateY;                
-				// var rotation = Quaternion.Euler(0, x, 0);
+                float rotateY = Input.GetAxis("Mouse X") * 2;
+                float rotateX = -Input.GetAxis("Mouse Y") * 2;
+                playerManager.globalRotationY += rotateY;
+                playerManager.globalRotationX += rotateX;
+                // var rotation = Quaternion.Euler(0, x, 0);
                 // var position = rotation * new Vector3(0.0f, 0.0f, -distance) + centerPos;
             }
-                cameraTransform.rotation = Quaternion.Euler(0, playerManager.globalRotationY, 0);
-                cameraTransform.position = Quaternion.Euler(0, playerManager.globalRotationY, 0) * new Vector3(0.0f, height, -distance) + centerPos;;
+            if (playerManager != null)
+            {
+                cameraTransform.rotation = Quaternion.Euler(playerManager.globalRotationX, playerManager.globalRotationY, 0);
+                cameraTransform.position = Quaternion.Euler(playerManager.globalRotationX, playerManager.globalRotationY, 0) * new Vector3(0.0f, height, -distance) + centerPos; ;
+            }
         }
 
         #endregion

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 0c791d46a48e8304c85c8c87d12a8e6a
+guid: c9c6a2fbcc05ed34788253325102ca36
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - pfInGameUI: {fileID: 8498582975615103195, guid: 63b9aeef1115b5a4abbe4f1fe4270b88,
-      type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
