@@ -31,7 +31,7 @@ public class TargetingController : MonoBehaviour
     void updateTargetIconPosition()
     {       
         if(target != null) { 
-            Vector2 targetPosition = target.GetComponent<Rigidbody2D>().position;
+            Vector3 targetPosition = target.transform.position;
             if (targetPosition != null)
             {
                //  targetPosition.y += 2;

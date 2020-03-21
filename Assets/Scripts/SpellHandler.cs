@@ -24,6 +24,7 @@ public class SpellHandler : MonoBehaviourPunCallbacks
             player = gameObject;
             targetingController = player.GetComponent<TargetingController>();
             energyBar = GameObject.Find("ManaBar").GetComponentInChildren<EnergyBar>();
+            populateSpells();
         }
     }
     void Start()
@@ -34,7 +35,6 @@ public class SpellHandler : MonoBehaviourPunCallbacks
         notEnoughEnergyAudioSource.clip = notEnoughEnergyAudioClip;
 
 
-        populateSpells();
     }
 
     // Update is called once per frame

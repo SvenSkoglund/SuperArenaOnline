@@ -19,6 +19,7 @@ public class SpellIcon : MonoBehaviour
         Transform spellIconTransform =  Instantiate(GameAssets.i.pfSpellIcon, spellIconBarTransform.position, Quaternion.identity);
         SpellIcon spellIcon = spellIconTransform.GetComponent<SpellIcon>();
         Sprite iconImage =  Resources.Load<Sprite>(pathToIcon);
+        Image image = spellIconTransform.Find("Icon").GetComponent<Image>();
         spellIconTransform.Find("Icon").GetComponent<Image>().sprite = iconImage;
 
         spellIconTransform.SetParent(spellIconBarTransform);
